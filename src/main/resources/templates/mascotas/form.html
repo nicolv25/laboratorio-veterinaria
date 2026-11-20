@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Mascota')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('mascotas')}"></nav>
+<main class="container py-4" style="max-width: 720px;">
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+    <div class="card">
+        <div class="card-body p-4">
+            <h3 class="page-title mb-4">
+                <i class="bi bi-emoji-smile-fill text-primary me-2"></i>
+                <span th:text="${mascota.id == null} ? 'Nueva mascota' : 'Editar mascota'">Nueva mascota</span>
+            </h3>
+            <form th:action="@{/mascotas/guardar}" th:object="${mascota}" method="post" class="row g-3">
+                <input type="hidden" th:field="*{id}">
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" class="form-control" th:field="*{nombre}" required>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Especie</label>
+                    <input type="text" class="form-control" th:field="*{especie}" placeholder="Perro, gato, conejo..." required>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Raza</label>
+                    <input type="text" class="form-control" th:field="*{raza}">
+                </div>
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Edad (años)</label>
+                    <input type="number" min="0" class="form-control" th:field="*{edad}">
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Dueño</label>
+                    <select class="form-select" name="dueno.id" required>
+                        <option value="">-- Selecciona un dueño --</option>
+                        <option th:each="d : ${duenos}" th:value="${d.id}" th:text="${d.nombre}"
+                                th:selected="${mascota.dueno != null and mascota.dueno.id == d.id}">Carlos</option>
+                    </select>
+                </div>
+                <div class="col-12 d-flex justify-content-end gap-2 mt-4">
+                    <a th:href="@{/mascotas}" class="btn btn-outline-secondary"><i class="bi bi-x-circle me-1"></i>Cancelar</a>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-check-circle me-1"></i>Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

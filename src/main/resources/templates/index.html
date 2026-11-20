@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Inicio')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('inicio')}"></nav>
+<main class="container py-4">
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+    <div class="text-center my-4">
+        <h1 class="page-title"><i class="bi bi-heart-pulse-fill text-primary"></i> Sistema de Gestión Veterinaria</h1>
+        <p class="text-muted">Administra mascotas, dueños, citas médicas y tratamientos en un solo lugar.</p>
+    </div>
+    <div class="row g-4">
+        <div class="col-12 col-sm-6 col-lg-3">
+            <a th:href="@{/mascotas}" class="text-decoration-none">
+                <div class="card hover-card h-100 text-center p-4">
+                    <span class="icon-circle bg-primary-subtle text-primary mx-auto mb-3"><i class="bi bi-emoji-smile-fill"></i></span>
+                    <h5 class="text-dark">Mascotas</h5>
+                    <span class="badge bg-primary fs-6" th:text="${totalMascotas}">0</span>
+                </div>
+            </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+            <a th:href="@{/duenos}" class="text-decoration-none">
+                <div class="card hover-card h-100 text-center p-4">
+                    <span class="icon-circle bg-success-subtle text-success mx-auto mb-3"><i class="bi bi-person-fill"></i></span>
+                    <h5 class="text-dark">Dueños</h5>
+                    <span class="badge bg-success fs-6" th:text="${totalDuenos}">0</span>
+                </div>
+            </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+            <a th:href="@{/citas}" class="text-decoration-none">
+                <div class="card hover-card h-100 text-center p-4">
+                    <span class="icon-circle bg-warning-subtle text-warning mx-auto mb-3"><i class="bi bi-calendar-event-fill"></i></span>
+                    <h5 class="text-dark">Citas</h5>
+                    <span class="badge bg-warning text-dark fs-6" th:text="${totalCitas}">0</span>
+                </div>
+            </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+            <a th:href="@{/tratamientos}" class="text-decoration-none">
+                <div class="card hover-card h-100 text-center p-4">
+                    <span class="icon-circle bg-danger-subtle text-danger mx-auto mb-3"><i class="bi bi-capsule"></i></span>
+                    <h5 class="text-dark">Tratamientos</h5>
+                    <span class="badge bg-danger fs-6" th:text="${totalTratamientos}">0</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

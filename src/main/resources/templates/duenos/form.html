@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Dueño')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('duenos')}"></nav>
+<main class="container py-4" style="max-width: 720px;">
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+    <div class="card">
+        <div class="card-body p-4">
+            <h3 class="page-title mb-4">
+                <i class="bi bi-person-fill text-success me-2"></i>
+                <span th:text="${dueno.id == null} ? 'Nuevo dueño' : 'Editar dueño'">Nuevo dueño</span>
+            </h3>
+            <form th:action="@{/duenos/guardar}" th:object="${dueno}" method="post" class="row g-3">
+                <input type="hidden" th:field="*{id}">
+                <div class="col-12">
+                    <label class="form-label">Nombre completo</label>
+                    <input type="text" class="form-control" th:field="*{nombre}" required>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" th:field="*{telefono}">
+                </div>
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" th:field="*{correo}">
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Dirección</label>
+                    <input type="text" class="form-control" th:field="*{direccion}">
+                </div>
+                <div class="col-12 d-flex justify-content-end gap-2 mt-4">
+                    <a th:href="@{/duenos}" class="btn btn-outline-secondary"><i class="bi bi-x-circle me-1"></i>Cancelar</a>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-check-circle me-1"></i>Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

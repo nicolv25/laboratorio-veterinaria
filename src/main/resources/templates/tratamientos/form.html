@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Tratamiento')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('tratamientos')}"></nav>
+<main class="container py-4" style="max-width: 720px;">
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+    <div class="card">
+        <div class="card-body p-4">
+            <h3 class="page-title mb-4">
+                <i class="bi bi-capsule text-danger me-2"></i>
+                <span th:text="${tratamiento.id == null} ? 'Nuevo tratamiento' : 'Editar tratamiento'">Nuevo tratamiento</span>
+            </h3>
+            <form th:action="@{/tratamientos/guardar}" th:object="${tratamiento}" method="post" class="row g-3">
+                <input type="hidden" th:field="*{id}">
+                <div class="col-12">
+                    <label class="form-label">Cita</label>
+                    <select class="form-select" name="cita.id" required>
+                        <option value="">-- Selecciona una cita --</option>
+                        <option th:each="c : ${citas}" th:value="${c.id}"
+                                th:text="${c.fecha} + ' · ' + (${c.mascota != null} ? ${c.mascota.nombre} : 'Sin mascota') + ' · ' + ${c.motivo}"
+                                th:selected="${tratamiento.cita != null and tratamiento.cita.id == c.id}">2023-10-25 · Firulais</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Medicamento o procedimiento</label>
+                    <input type="text" class="form-control" th:field="*{descripcion}" required>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Dosis o frecuencia</label>
+                    <input type="text" class="form-control" th:field="*{dosis}" placeholder="Ej: 1 dosis cada 8 horas">
+                </div>
+                <div class="col-12 d-flex justify-content-end gap-2 mt-4">
+                    <a th:href="@{/tratamientos}" class="btn btn-outline-secondary"><i class="bi bi-x-circle me-1"></i>Cancelar</a>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-check-circle me-1"></i>Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>
